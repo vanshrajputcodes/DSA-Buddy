@@ -1,0 +1,7 @@
+project_id = "zbnrwvwaxuonlrodfpmw"
+
+[functions.dsa-chat]
+verify_jwt = false
+
+[functions.generate-roadmap]
+verify_jwt = false
