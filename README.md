@@ -1,215 +1,276 @@
-DSA Buddy – AI-Powered Learning Platform
-Overview
 
-DSA Buddy is a modern, AI-driven web application designed to assist users in learning Data Structures and Algorithms through personalized roadmaps, interactive quizzes, AI chat assistance, and structured notes generation.
+# DSA Buddy – AI-Powered Data Structures & Algorithms Learning Platform
 
-The application follows a frontend-centric architecture using a Backend-as-a-Service model, integrating external AI APIs and Supabase for authentication and persistence.
+## Overview
 
-Core Features
-1. AI Chat Assistant
-Accepts user queries related to DSA
-Sends requests to an external AI API
-Displays structured responses in a conversational UI
-2. Roadmap Generator
-Generates personalized DSA learning paths
-Adapts based on user-selected goals and levels
-Displays structured progression (topics, sequence, milestones)
-3. Quiz System
-Interactive quiz interface
-Tracks answers and progression
-Evaluates user understanding
-4. Notes Generator and Export
-Generates structured notes
-Allows export to PDF using jsPDF
-5. Authentication System
-User login/signup handled via Supabase
-Session management included
-Technology Stack
-Frontend
-React (v18)
-TypeScript
-Vite
-UI and Styling
-Tailwind CSS
-shadcn/ui
-Radix UI
-Lucide Icons
-State and Data Management
-TanStack React Query
-React Hooks
-Routing
-React Router
-Forms and Validation
-React Hook Form
-Zod
-Backend (BaaS)
-Supabase
-Authentication
-Database
-Storage (optional)
-Additional Libraries
-jsPDF (PDF export)
-Recharts (data visualization)
-Vitest (testing)
-Project Structure
-root/
+DSA Buddy is a modern web application designed to streamline the process of learning Data Structures and Algorithms through structured guidance and AI-assisted interactions. The platform combines conversational AI, personalized roadmap generation, interactive quizzes, and notes creation into a unified learning experience.
+
+The system is built using a frontend-centric architecture and leverages Backend-as-a-Service (BaaS) and external AI APIs to handle backend responsibilities.
+
+---
+
+## Key Features
+
+### AI Chat Assistant
+
+Enables users to ask questions related to DSA concepts and receive structured, contextual responses through an interactive chat interface.
+
+### Personalized Roadmap Generator
+
+Generates tailored learning paths based on user-selected goals and proficiency level, helping users follow a structured progression.
+
+### Interactive Quiz System
+
+Provides topic-based quizzes with answer evaluation to reinforce learning and assess understanding.
+
+### Notes Generation and Export
+
+Generates structured notes and allows users to export them as downloadable PDF documents.
+
+### Authentication and Session Management
+
+Handles user authentication securely using Supabase, including login, signup, and session persistence.
+
+---
+
+## Technology Stack
+
+### Frontend
+
+* React (v18)
+* TypeScript
+* Vite
+
+### UI and Styling
+
+* Tailwind CSS
+* shadcn/ui
+* Radix UI
+
+### State Management
+
+* TanStack React Query
+* React Hooks
+
+### Routing
+
+* React Router
+
+### Forms and Validation
+
+* React Hook Form
+* Zod
+
+### Backend Services
+
+* Supabase (Authentication and Database)
+
+### Additional Libraries
+
+* jsPDF (PDF generation)
+* Recharts (data visualization)
+* Vitest (testing)
+
+---
+
+## System Architecture
+
+```mermaid
+flowchart TD
+    A[Client Application - React] --> B[State Layer - React Query and Hooks]
+    B --> C[Service Layer]
+
+    C --> D[Supabase Backend]
+    C --> E[External AI APIs]
+
+    D --> F[(Database)]
+    D --> G[(Authentication)]
+
+    E --> H[AI Processing Engine]
+
+    H --> C
+    C --> B
+    B --> A
+```
+
+---
+
+## Functional Flow
+
+### Chat System
+
+```mermaid
+flowchart TD
+    A[User Input] --> B[ChatInput Component]
+    B --> C[API Request Triggered]
+    C --> D[AI API Processing]
+    D --> E[Response Received]
+    E --> F[ChatMessage Component Renders Output]
+```
+
+---
+
+### Roadmap Generation
+
+```mermaid
+flowchart TD
+    A[User Selects Goal and Level] --> B[RoadmapBuilder Component]
+    B --> C[Process Input or Call API]
+    C --> D[Generate Roadmap Data]
+    D --> E[GeneratedRoadmap Component Displays Result]
+```
+
+---
+
+### Quiz System
+
+```mermaid
+flowchart TD
+    A[User Starts Quiz] --> B[QuizStarter Component]
+    B --> C[Load Questions]
+    C --> D[Render Question]
+    D --> E[User Submits Answer]
+    E --> F[Evaluate Answer]
+    F --> G{More Questions Available}
+
+    G -->|Yes| D
+    G -->|No| H[Display Final Results]
+```
+
+---
+
+### Notes Generation and Export
+
+```mermaid
+flowchart TD
+    A[User Requests Notes] --> B[Generate Notes via AI or Logic]
+    B --> C[Display in NotesPanel]
+    C --> D[User Initiates Export]
+    D --> E[PDF Generated using jsPDF]
+    E --> F[Download File]
+```
+
+---
+
+### Authentication Flow
+
+```mermaid
+flowchart TD
+    A[User Submits Credentials] --> B[Supabase Authentication]
+    B --> C{Validation Result}
+
+    C -->|Valid| D[Session Created]
+    D --> E[Access Granted]
+
+    C -->|Invalid| F[Error Returned]
+```
+
+---
+
+## Project Structure
+
+```
+src/
 │
-├── public/
-├── src/
-│   ├── components/
-│   │   ├── ChatInput.tsx
-│   │   ├── ChatMessage.tsx
-│   │   ├── QuizStarter.tsx
-│   │   ├── QuizQuestion.tsx
-│   │   ├── RoadmapBuilder.tsx
-│   │   ├── GeneratedRoadmap.tsx
-│   │   ├── NotesPanel.tsx
-│   │
-│   ├── pages/
-│   ├── hooks/
-│   ├── lib/
-│   ├── services/
-│   ├── App.tsx
-│   ├── main.tsx
+├── components/
+│   ├── ChatInput.tsx
+│   ├── ChatMessage.tsx
+│   ├── QuizStarter.tsx
+│   ├── QuizQuestion.tsx
+│   ├── RoadmapBuilder.tsx
+│   ├── GeneratedRoadmap.tsx
+│   ├── NotesPanel.tsx
 │
-├── .env
-├── package.json
-├── vite.config.ts
-Application Architecture
-High-Level Architecture
-[ User Interface (React) ]
-           │
-           ▼
-[ State Management (React Query + Hooks) ]
-           │
-           ▼
-[ External Services Layer ]
-   ├── Supabase (Auth + DB)
-   └── AI APIs (Chat / Roadmap / Notes)
-Functional Flowcharts
-1. Chat Flow
-User Input
-   │
-   ▼
-ChatInput Component
-   │
-   ▼
-API Request (AI Service)
-   │
-   ▼
-Response प्राप्त
-   │
-   ▼
-ChatMessage Component Render
-2. Roadmap Generation Flow
-User Selects Goal + Level
-   │
-   ▼
-RoadmapBuilder Component
-   │
-   ▼
-Processing Logic / API Call
-   │
-   ▼
-Generated Roadmap Data
-   │
-   ▼
-GeneratedRoadmap Component Render
-3. Quiz Flow
-User Starts Quiz
-   │
-   ▼
-QuizStarter Component
-   │
-   ▼
-Question Rendering (QuizQuestion)
-   │
-   ▼
-User Answer Submission
-   │
-   ▼
-Answer Evaluation
-   │
-   ▼
-Next Question / Result
-4. Notes Generation and Export Flow
-User Requests Notes
-   │
-   ▼
-Notes Generated (AI / Logic)
-   │
-   ▼
-Displayed in NotesPanel
-   │
-   ▼
-User Clicks Export
-   │
-   ▼
-jsPDF Generates File
-   │
-   ▼
-Download PDF
-5. Authentication Flow
-User Signup/Login
-   │
-   ▼
-Supabase Auth सेवा
-   │
-   ▼
-Session Token Generated
-   │
-   ▼
-User Access Granted
-Environment Configuration
+├── pages/
+├── hooks/
+├── services/
+├── lib/
+│
+├── App.tsx
+├── main.tsx
+```
 
-Create a .env file in the root directory:
+---
 
-VITE_SUPABASE_URL=your_supabase_url
-VITE_SUPABASE_ANON_KEY=your_supabase_key
+## Environment Configuration
+
+Create a `.env` file in the root directory and define the following variables:
+
+```
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 VITE_AI_API_KEY=your_ai_api_key
-Installation and Setup
-Step 1: Clone Repository
-git clone <repository-url>
-cd project-folder
-Step 2: Install Dependencies
-npm install
-Step 3: Run Development Server
-npm run dev
-Step 4: Build for Production
-npm run build
-Key Design Patterns
-Component-Based Architecture
-Modular UI components
-Reusable and scalable design
-Hooks-Based State Management
-Local state using React hooks
-Server state using React Query
-API Abstraction
-Centralized service handling
-Clean separation between UI and data logic
-BaaS Integration
-No custom backend
-Supabase handles backend responsibilities
-Important Observations
-No traditional backend (Node.js, Django, PHP)
-Fully frontend-driven logic
-External APIs handle AI processing
-Scalable SaaS-ready architecture
-Limitations
-Direct API calls from frontend (security concern for production)
-Limited server-side control
-Dependency on third-party services
-Possible Improvements
-Add custom backend (Node.js / Express)
-Implement API proxy layer
-Add role-based access control
-Improve caching and offline support
-Add analytics and tracking
-Use Cases
-DSA learning platforms
-EdTech SaaS products
-AI-powered tutoring systems
-Developer portfolio projects
-License
+```
 
-This project is intended for educational and development purposes. Modify and extend as needed.
+---
+
+## Setup and Installation
+
+### Clone the repository
+
+```
+git clone <repository-url>
+cd <project-folder>
+```
+
+### Install dependencies
+
+```
+npm install
+```
+
+### Start development server
+
+```
+npm run dev
+```
+
+### Build for production
+
+```
+npm run build
+```
+
+---
+
+## Design Principles
+
+* Modular component-based architecture
+* Clear separation of concerns between UI and data handling
+* API-driven communication model
+* Scalable and maintainable frontend structure
+* Backend abstraction using BaaS
+
+---
+
+## Limitations
+
+* Direct API calls from frontend may expose sensitive keys
+* Limited backend customization due to reliance on external services
+* Performance dependent on third-party APIs
+
+---
+
+## Recommended Improvements
+
+* Introduce a backend layer (Node.js or similar) for API proxying
+* Implement secure key management
+* Add role-based access control
+* Enhance caching strategies and performance optimization
+* Integrate logging and monitoring systems
+
+---
+
+## Use Cases
+
+* Data Structures and Algorithms learning platforms
+* AI-powered educational tools
+* Developer portfolio projects
+* EdTech SaaS applications
+
+---
+
+## License
+
+This project is intended for educational and development purposes. It can be extended and customized based on requirements.
+
